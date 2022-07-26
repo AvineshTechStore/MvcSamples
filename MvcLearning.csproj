@@ -313,7 +313,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55296</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44309/</IISUrl>
+          <IISUrl>https://localhost:44307/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -323,7 +323,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
- 
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace MvcLearning.Controllers
 {
@@ -21,7 +22,7 @@ namespace MvcLearning.Controllers
         // GET: Customer
         public ViewResult Index()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.Include(m => m.MembershipType).ToList();
 
             return View(customers);
         }

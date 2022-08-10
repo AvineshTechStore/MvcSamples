@@ -44,15 +44,29 @@ namespace MvcLearning.Controllers
 
             var viewModel = new CustomerFormViewModel()
             {
-                MembershipTypes=membershipTypes
+                Customer = new Customer(),//This will initialize Hidden field id with default valid and avoid validation error for Customer Id in validation summary.
+                MembershipTypes = membershipTypes
             };
 
-            return View("CustomerForm",viewModel);
+            return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+
+                    Customer=customer,
+                    MembershipTypes=_context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm",viewModel);
+            }
+
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
             else

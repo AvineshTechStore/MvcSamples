@@ -20,6 +20,8 @@ namespace MvcLearning.Dtos
         //[Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
+        public MemebershipTypeDto MembershipType { get; set; }
+
         public byte MembershipTypeId { get; set; }
     }
 }

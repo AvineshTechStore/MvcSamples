@@ -12,6 +12,7 @@ namespace MvcLearning.App_Start
             // Domain to Dto
             Mapper.CreateMap<Customer, CustomerDto>();
             Mapper.CreateMap<Movie, MovieDto>();
+            Mapper.CreateMap<MembershipType, MemebershipTypeDto>();
 
 
             // Dto to Domain

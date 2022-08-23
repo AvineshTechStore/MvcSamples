@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MvcLearning.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+@*@if (!Model.Any())
+{
+    <p>We don't have any customers yet.'</p>
+}
+else
+{*@
+    <table id="customers" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customers</th>
+                <th>Membership Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*Commenting this where we send data from mvc controller. Now we are using datatable which is fed using api*@
+            @*@foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null) </td>
+                    <td>@customer.MembershipType.Name</td>
+                    <td>
+                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                    </td>
+                </tr>
+            }*@
+        </tbody>
+    </table>
+@*}*@
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //$("#customers .js-delete").on("click", function () { creates delete handlers for all records
+            //better approach is to have a single delete handler for all records so use below
+
+           var table = $("#customers").DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc:""
+                },
+                columns: [
+                    {
+                        data: "name"
+                    },
+                    {
+                        data:"membershipType.name"
+                    }
+                ]
+            });
+
+            //Parameter .js-delete is a filter which filters dom object from customers
+        });
+    </script>
+}

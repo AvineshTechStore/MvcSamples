@@ -8,8 +8,13 @@ namespace MvcLearning
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            bundles.Add(new ScriptBundle("~/bundles/lib").Include(
+                       "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/bootbox.js",
+                        "~/Scripts/bootstrap.js",
+                         "~/Scripts/datatables/jquery.dataTables.js",
+                         "~/Scripts/datatables/dataTables.bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -19,11 +24,14 @@ namespace MvcLearning
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootbox.js",
+            //          "~/Scripts/bootstrap.js"));
+            //combined within lib above
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-lumen.css",
+                      "~/Content/datatables/css/dataTables.bootstrap.css",
                       "~/Content/Site.css"));
         }
     }

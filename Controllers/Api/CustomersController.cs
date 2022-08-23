@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace MvcLearning.Controllers.Api
 {
@@ -22,7 +23,10 @@ namespace MvcLearning.Controllers.Api
         [Route("api/customers")]
         public IHttpActionResult GetCustomers()
         {
-            var customers= _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customers = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
 
             return Ok(customers);
         }
@@ -78,7 +82,7 @@ namespace MvcLearning.Controllers.Api
         //DELETE /api/customer/id
 
         [HttpDelete]
-        public void DeleteCustomer(int id)
+        public IHttpActionResult DeleteCustomer(int id)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -86,10 +90,12 @@ namespace MvcLearning.Controllers.Api
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customerInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             _context.Customers.Remove(customerInDb);
             _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

@@ -21,12 +21,22 @@ namespace MvcLearning.Controllers
             _context.Dispose();
         }
         // GET: Customer
+        //Commented since now we are using WebApi and datatable
+
         public ViewResult Index()
         {
-            var customers = _context.Customers.Include(m => m.MembershipType).ToList();
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View("List");
 
-            return View(customers);
+            return View("ReadOnlyView");
         }
+
+        //public ViewResult Index()
+        //{
+        //    var customers = _context.Customers.Include(m => m.MembershipType).ToList();
+
+        //    return View(customers);
+        //}
 
         public ActionResult Details(int id)
         {
@@ -38,6 +48,7 @@ namespace MvcLearning.Controllers
             return View(customer);
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
@@ -53,6 +64,7 @@ namespace MvcLearning.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Save(Customer customer)
         {
             if (!ModelState.IsValid)
@@ -84,6 +96,7 @@ namespace MvcLearning.Controllers
             return RedirectToAction("Index", "Customers");
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
